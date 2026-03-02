@@ -134,11 +134,11 @@ const ActiveMemoryModal: React.FC<ActiveMemoryModalProps> = memo(({ onJumpToMess
             const anchorId = `mem-manual-inst-${Date.now()}`;
 
             // Perform update, linking to the future anchor ID
-            const resultMessage = await performBackgroundUpdate(manualInstruction, adaptedContext, anchorId);
+            const result = await performBackgroundUpdate(manualInstruction, adaptedContext, anchorId);
             
-            showToast(resultMessage, resultMessage.includes("success") ? "success" : "error");
+            showToast(result.message, result.success ? "success" : "error");
             
-            if (resultMessage.includes("success")) {
+            if (result.success) {
                  const anchorMessage: ChatMessage = {
                     id: anchorId,
                     role: ChatMessageRole.MODEL,

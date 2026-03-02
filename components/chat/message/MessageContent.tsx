@@ -40,13 +40,12 @@ const processNodeContent = (nodes: React.ReactNode): React.ReactNode => {
             });
         }
         
-        if (React.isValidElement(node) && node.props.children) {
+        if (React.isValidElement(node) && (node.props as any).children) {
             // Recursively process children of elements (like strong, em, etc.)
             // We clone the element to preserve its type and other props, but replace children.
             return React.cloneElement(node, {
-                // @ts-ignore
-                children: processNodeContent(node.props.children)
-            });
+                children: processNodeContent((node.props as any).children)
+            } as any);
         }
         
         return node;
